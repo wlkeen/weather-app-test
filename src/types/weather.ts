@@ -21,3 +21,5 @@ export interface DailyForecast {
     description: string;
     icon: string;
 }
+
+export type LoadingStatus = 'idle' | 'loading' | 'succeeded' | 'failed';
