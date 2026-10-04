@@ -1,0 +1,24 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// Minimal global reset/base styles for the scaffold.
+// Full visual design lands in a later commit.
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: $font-family-base;
+  color: $color-text;
+  background-color: $color-background;
+}
+
+main {
+  max-width: 48rem;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
