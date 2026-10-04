@@ -1,15 +1,18 @@
-import { put, takeLatest } from 'redux-saga/effects';
+import { call, put, takeLatest } from 'redux-saga/effects';
 import { selectCity } from '@/features/cities/citiesSlice';
-import { STATIC_FORECAST } from '@/features/forecast/staticForecast';
-import { forecastRequested, forecastSucceeded } from './forecastSlice';
+import { fetchFiveDayForecast } from '@/services/weatherApi';
+import type { DailyForecast } from '@/types/weather';
+import { forecastFailed, forecastRequested, forecastSucceeded } from './forecastSlice';
 
-/**
- * Placeholder forecast saga: serves static data when a city is selected.
- * Replaced by a real/mocked HTTP fetch in later commits.
- */
-function* handleCitySelected() {
-    yield put(forecastRequested());
-    yield put(forecastSucceeded(STATIC_FORECAST));
+function* handleCitySelected(action: ReturnType<typeof selectCity>) {
+    try {
+        yield put(forecastRequested());
+        const days: DailyForecast[] = yield call(fetchFiveDayForecast, action.payload.coord);
+        yield put(forecastSucceeded(days));
+    } catch (error) {
+        const message = error instanceof Error ? error.message : 'Failed to load forecast';
+        yield put(forecastFailed(message));
+    }
 }
 
 export function* forecastSaga() {
