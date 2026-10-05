@@ -33,4 +33,3 @@ describe('ForecastTable', () => {
     expect(screen.getByRole('alert')).toHaveTextContent(/missing openweathermap api key/i);
   });
 });
-    

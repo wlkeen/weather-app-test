@@ -51,7 +51,11 @@ export function ForecastTable({
 
   return (
     <section className="forecast" aria-label={t('forecast.aria')}>
-      {cityLabel ? <h2>{t('forecast.for', { city: cityLabel })}</h2> : <h2>{t('forecast.title')}</h2>}
+      {cityLabel ? (
+        <h2>{t('forecast.for', { city: cityLabel })}</h2>
+      ) : (
+        <h2>{t('forecast.title')}</h2>
+      )}
       <div className="forecast-table-wrap">
         <table className="forecast-table">
           <thead>

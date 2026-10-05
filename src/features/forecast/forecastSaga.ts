@@ -5,16 +5,16 @@ import type { DailyForecast } from '@/types/weather';
 import { forecastFailed, forecastRequested, forecastSucceeded } from './forecastSlice';
 
 function* handleCitySelected(action: ReturnType<typeof selectCity>) {
-    try {
-        yield put(forecastRequested());
-        const days: DailyForecast[] = yield call(fetchFiveDayForecast, action.payload.coord);
-        yield put(forecastSucceeded(days));
-    } catch (error) {
-        const message = error instanceof Error ? error.message : 'errors.failedForecast';
-        yield put(forecastFailed(message));
-    }
+  try {
+    yield put(forecastRequested());
+    const days: DailyForecast[] = yield call(fetchFiveDayForecast, action.payload.coord);
+    yield put(forecastSucceeded(days));
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'errors.failedForecast';
+    yield put(forecastFailed(message));
+  }
 }
 
 export function* forecastSaga() {
-    yield takeLatest(selectCity.type, handleCitySelected);
+  yield takeLatest(selectCity.type, handleCitySelected);
 }

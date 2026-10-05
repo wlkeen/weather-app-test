@@ -16,12 +16,7 @@ function slot(dayOffset: number, hour: number, tempMin: number, tempMax: number)
 
 describe('aggregateDailyForecast', () => {
   it('groups 3-hour slots into daily min/max rows', () => {
-    const items = [
-      slot(0, 6, 10, 12),
-      slot(0, 12, 14, 18),
-      slot(1, 6, 9, 11),
-      slot(1, 12, 13, 17),
-    ];
+    const items = [slot(0, 6, 10, 12), slot(0, 12, 14, 18), slot(1, 6, 9, 11), slot(1, 12, 13, 17)];
 
     const days = aggregateDailyForecast(items);
 

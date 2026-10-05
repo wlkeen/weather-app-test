@@ -7,12 +7,12 @@ import { rootSaga } from './rootSaga';
 const sagaMiddleware = createSagaMiddleware();
 
 export const store = configureStore({
-    reducer: {
-        cities: citiesReducer,
-        forecast: forecastReducer,
-    },
-    middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware({ thunk: false, serializableCheck: false }).concat(sagaMiddleware),
+  reducer: {
+    cities: citiesReducer,
+    forecast: forecastReducer,
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({ thunk: false, serializableCheck: false }).concat(sagaMiddleware),
 });
 
 sagaMiddleware.run(rootSaga);
