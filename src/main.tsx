@@ -6,7 +6,10 @@ import App from './App';
 import '@/styles/main.scss';
 
 async function enableMocking() {
-  // MSW intercepts OpenWeatherMap calls so the UI can be developed without a real key.
+  if (import.meta.env.VITE_USE_MOCK_API !== 'true') {
+    return;
+    }
+
   const { worker } = await import('@/mocks/browser');
   await worker.start({ onUnhandledRequest: 'bypass' });
 }
