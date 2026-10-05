@@ -1,0 +1,45 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.app-shell {
+  width: min(52rem, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: $space-6 0 $space-7;
+}
+
+.app-header {
+  margin-bottom: $space-6;
+  @include fade-up(0s);
+
+  h1 {
+    margin: 0 0 $space-2;
+    font-family: $font-display;
+    font-weight: 560;
+    font-size: clamp(2.4rem, 6vw, 3.6rem);
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+  }
+
+  p {
+    margin: 0;
+    max-width: 34rem;
+    color: $color-ink-muted;
+    font-size: 1.05rem;
+  }
+
+  .mock-note {
+    margin-top: $space-3;
+    color: $color-accent-deep;
+    font-size: 0.92rem;
+  }
+}
+
+.status-line {
+  margin: $space-3 0;
+  color: $color-ink-muted;
+}
+
+.alert-line {
+  margin: $space-3 0;
+  color: $color-danger;
+}

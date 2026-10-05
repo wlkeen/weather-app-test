@@ -1,0 +1,84 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.city-search {
+  position: relative;
+  margin-bottom: $space-5;
+  @include fade-up(80ms);
+
+  label {
+    display: block;
+    margin-bottom: $space-2;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: $color-ink-muted;
+  }
+
+  input {
+    width: 100%;
+    padding: 0.95rem 1.1rem;
+    border: 1px solid $color-line;
+    border-radius: $radius-md;
+    background: $color-surface-strong;
+    color: $color-ink;
+    font: inherit;
+    font-size: 1.05rem;
+    box-shadow: $shadow-soft;
+    transition:
+      border-color 180ms ease,
+      box-shadow 180ms ease,
+      transform 180ms ease;
+
+    &:hover {
+      border-color: rgba(11, 110, 153, 0.35);
+    }
+
+    &:focus {
+      @include focus-ring;
+      border-color: $color-accent;
+      transform: translateY(-1px);
+    }
+  }
+}
+
+.city-suggestions {
+  position: absolute;
+  z-index: 5;
+  top: calc(100% + 0.35rem);
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: $space-2;
+  list-style: none;
+  @include panel;
+  box-shadow: $shadow-soft;
+  animation: fade-up 180ms ease both;
+
+  li + li {
+    margin-top: $space-1;
+  }
+
+  button {
+    width: 100%;
+    padding: 0.7rem 0.85rem;
+    border: 0;
+    border-radius: $radius-sm;
+    background: transparent;
+    color: $color-ink;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 140ms ease;
+
+    &:hover,
+    &:focus-visible {
+      background: rgba(11, 110, 153, 0.1);
+    }
+
+    &:focus-visible {
+      @include focus-ring;
+    }
+  }
+}

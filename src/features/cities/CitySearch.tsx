@@ -7,7 +7,7 @@ interface CitySearchProps {
 }
 
 /**
- * City search input shell. Autocomplete wiring lands in a later commit.
+ * Custom city autocomplete (no third-party UI kit).
  */
 export function CitySearch({
   value,
@@ -18,11 +18,11 @@ export function CitySearch({
   const listId = 'city-suggestions';
 
   return (
-    <section aria-label="City search">
+    <section className="city-search" aria-label="City search">
       <label htmlFor="city-input">City</label>
       <input
         id="city-input"
-        type="text"
+        type="search"
         role="combobox"
         aria-expanded={suggestions.length > 0}
         aria-controls={listId}
@@ -33,7 +33,7 @@ export function CitySearch({
         onChange={(event) => onChange(event.target.value)}
       />
       {suggestions.length > 0 && (
-        <ul id={listId} role="listbox">
+        <ul id={listId} className="city-suggestions" role="listbox">
           {suggestions.map((suggestion) => (
             <li key={suggestion} role="option">
               <button type="button" onClick={() => onSelectSuggestion?.(suggestion)}>

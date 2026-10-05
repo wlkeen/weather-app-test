@@ -23,12 +23,14 @@ function App() {
   const usingMockApi = import.meta.env.VITE_USE_MOCK_API === 'true';
 
   return (
-    <main>
-      <header>
+    <main className="app-shell">
+      <header className="app-header">
         <h1>Weather Forecast</h1>
-        <p>Five-day temperature forecast for a selected city.</p>
+        <p>Five-day temperature outlook with city autocomplete powered by OpenWeatherMap.</p>
         {usingMockApi && (
-          <p role="note">Mock API mode is enabled (MSW). Set VITE_USE_MOCK_API=false to use the live API.</p>
+          <p className="mock-note" role="note">
+            Mock API mode is enabled (MSW). Set VITE_USE_MOCK_API=false to use the live API.
+          </p>
         )}
       </header>
 
@@ -44,8 +46,16 @@ function App() {
         }}
       />
 
-      {citiesStatus === 'loading' && <p role="status">Loading cities…</p>}
-      {citiesStatus === 'failed' && <p role="alert">{citiesError}</p>}
+      {citiesStatus === 'loading' && (
+        <p className="status-line" role="status">
+          Loading cities…
+        </p>
+      )}
+      {citiesStatus === 'failed' && (
+        <p className="alert-line" role="alert">
+          {citiesError}
+        </p>
+      )}
 
       <ForecastTable
         days={days}

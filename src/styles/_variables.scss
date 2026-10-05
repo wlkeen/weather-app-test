@@ -1,5 +1,30 @@
-// Design tokens — expanded when the UI is styled (Sass polish commit).
+// Design tokens — cool sky palette (light theme).
 
-$color-text: #1a1a1a;
-$color-background: #ffffff;
-$font-family-base: system-ui, sans-serif;
+$color-ink: #142033;
+$color-ink-muted: #4a5a70;
+$color-surface: rgba(255, 255, 255, 0.72);
+$color-surface-strong: #ffffff;
+$color-line: rgba(20, 32, 51, 0.12);
+$color-accent: #0b6e99;
+$color-accent-deep: #084d6b;
+$color-danger: #9b2c2c;
+$color-sky-top: #d7e9f7;
+$color-sky-mid: #f3f7fb;
+$color-sky-bottom: #eef4f1;
+
+$font-display: 'Fraunces', 'Times New Roman', serif;
+$font-body: 'Figtree', 'Segoe UI', sans-serif;
+
+$radius-sm: 0.5rem;
+$radius-md: 0.85rem;
+$shadow-soft: 0 18px 40px rgba(20, 32, 51, 0.08);
+
+$space-1: 0.25rem;
+$space-2: 0.5rem;
+$space-3: 0.75rem;
+$space-4: 1rem;
+$space-5: 1.5rem;
+$space-6: 2rem;
+$space-7: 3rem;
+
+$bp-tablet: 720px;
