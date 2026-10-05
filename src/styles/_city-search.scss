@@ -2,7 +2,10 @@
 @use 'mixins' as *;
 
 .city-search {
+  // Keep the autocomplete above the forecast panel. Both sections use fade-up
+  // animations, which create stacking contexts, so z-index must be on this parent.
   position: relative;
+  z-index: 20;
   margin-bottom: $space-5;
   @include fade-up(80ms);
 
@@ -45,7 +48,7 @@
 
 .city-suggestions {
   position: absolute;
-  z-index: 5;
+  z-index: 30;
   top: calc(100% + 0.35rem);
   left: 0;
   right: 0;
@@ -53,6 +56,9 @@
   padding: $space-2;
   list-style: none;
   @include panel;
+  // Opaque so forecast table content does not show through suggestion text.
+  background: $color-surface-strong;
+  backdrop-filter: none;
   box-shadow: $shadow-soft;
   animation: fade-up 180ms ease both;
 
