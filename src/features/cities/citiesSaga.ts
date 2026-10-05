@@ -19,7 +19,7 @@ export const GEOLOCATION_REQUESTED = 'cities/geolocationRequestedByUser';
 function getCurrentPosition(): Promise<Coordinates> {
   return new Promise((resolve, reject) => {
     if (!navigator.geolocation) {
-      reject(new Error('Geolocation is not supported by this browser.'));
+      reject(new Error('errors.geolocationUnsupported'));
       return;
     }
 
@@ -30,8 +30,8 @@ function getCurrentPosition(): Promise<Coordinates> {
           lon: position.coords.longitude,
         });
       },
-      (error) => {
-        reject(new Error(error.message || 'Unable to determine location.'));
+      () => {
+        reject(new Error('errors.geolocationFailed'));
       },
       { enableHighAccuracy: false, timeout: 10000 },
     );
@@ -43,9 +43,8 @@ function* loadCities() {
     yield put(citiesLoadRequested());
     const result: { cities: City[]; source: 'remote' | 'local' } = yield call(fetchCities);
     yield put(citiesLoadSucceeded(result));
-  } catch (error) {
-    const message = error instanceof Error ? error.message : 'Failed to load cities';
-    yield put(citiesLoadFailed(message));
+  } catch {
+    yield put(citiesLoadFailed('errors.failedCities'));
   }
 }
 
@@ -67,7 +66,7 @@ function* handleGeolocation() {
     };
     yield put(selectCity(city));
   } catch (error) {
-    const message = error instanceof Error ? error.message : 'Geolocation failed';
+    const message = error instanceof Error ? error.message : 'errors.geolocationGeneric';
     yield put(geolocationFailed(message));
   }
 }

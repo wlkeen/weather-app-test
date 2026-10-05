@@ -1,0 +1,50 @@
+{
+  "app": {
+    "title": "Předpověď počasí",
+    "subtitle": "Pětidenní teplotní výhled s našeptávačem měst napojeným na OpenWeatherMap.",
+    "mockMode": "Je zapnutý režim mock API (MSW). Pro živé API nastavte VITE_USE_MOCK_API=false.",
+    "citiesRemote": "Seznam měst načten z online JSON.",
+    "citiesLocal": "Seznam měst načten z lokálního záložního souboru.",
+    "language": "Jazyk",
+    "langEn": "EN",
+    "langCz": "CZ"
+  },
+  "city": {
+    "label": "Město",
+    "placeholder": "Začněte psát název města…",
+    "searchAria": "Vyhledávání města",
+    "loading": "Načítání měst…"
+  },
+  "geo": {
+    "useLocation": "Použít mou polohu",
+    "locating": "Zjišťování polohy…",
+    "currentLocation": "Aktuální poloha"
+  },
+  "forecast": {
+    "title": "Předpověď",
+    "for": "Předpověď pro {{city}}",
+    "loading": "Načítání předpovědi…",
+    "empty": "Vyberte město pro zobrazení pětidenní předpovědi.",
+    "failed": "Nepodařilo se načíst předpověď.",
+    "aria": "Pětidenní předpověď",
+    "date": "Datum",
+    "min": "Min (°C)",
+    "max": "Max (°C)",
+    "conditions": "Podmínky"
+  },
+  "chart": {
+    "trend": "Vývoj teploty",
+    "max": "Max °C",
+    "min": "Min °C"
+  },
+  "errors": {
+    "missingApiKey": "Chybí OpenWeatherMap API klíč. Nastavte VITE_OPENWEATHER_API_KEY v .env",
+    "invalidApiKey": "Neplatný OpenWeatherMap API klíč (HTTP 401).",
+    "weatherRequestFailed": "Požadavek na Weather API selhal.",
+    "failedForecast": "Nepodařilo se načíst předpověď.",
+    "failedCities": "Nepodařilo se načíst města.",
+    "geolocationUnsupported": "Geolokace není v tomto prohlížeči podporována.",
+    "geolocationFailed": "Nepodařilo se zjistit polohu.",
+    "geolocationGeneric": "Geolokace selhala."
+  }
+}

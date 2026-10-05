@@ -1,3 +1,4 @@
+import { getOwmLang } from '@/i18n';
 import type { OwmForecastResponse } from '@/types/openWeather';
 import type { Coordinates, DailyForecast } from '@/types/weather';
 import { aggregateDailyForecast } from '@/utils/aggregateForecast';
@@ -13,7 +14,7 @@ function resolveApiKey(): string {
   }
 
   if (!apiKey || apiKey === 'your_api_key_here') {
-    throw new Error('Missing OpenWeatherMap API key. Set VITE_OPENWEATHER_API_KEY in .env');
+    throw new Error('errors.missingApiKey');
   }
 
   return apiKey;
@@ -26,15 +27,16 @@ export async function fetchFiveDayForecast(coords: Coordinates): Promise<DailyFo
   url.searchParams.set('lat', String(coords.lat));
   url.searchParams.set('lon', String(coords.lon));
   url.searchParams.set('units', 'metric');
+  url.searchParams.set('lang', getOwmLang());
   url.searchParams.set('appid', apiKey);
 
   const response = await fetch(url.toString());
 
   if (!response.ok) {
     if (response.status === 401) {
-      throw new Error('Invalid OpenWeatherMap API key (HTTP 401).');
+      throw new Error('errors.invalidApiKey');
     }
-    throw new Error(`Weather API request failed (${response.status})`);
+    throw new Error('errors.weatherRequestFailed');
   }
 
   const data = (await response.json()) as OwmForecastResponse;

@@ -1,17 +1,21 @@
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { CitySearch } from '@/features/cities/CitySearch';
 import { CITIES_BOOTSTRAP, GEOLOCATION_REQUESTED } from '@/features/cities/citiesSaga';
 import { selectCity, setQuery } from '@/features/cities/citiesSlice';
 import { ForecastChart } from '@/features/forecast/ForecastChart';
 import { ForecastTable } from '@/features/forecast/ForecastTable';
+import { LanguageSwitcher } from '@/i18n/LanguageSwitcher';
+import { translateMessage } from '@/i18n';
 import { formatCityLabel } from '@/utils/cityLabel';
 
 /**
- * Root SPA with autocomplete, live/mock forecast, chart, and geolocation.
+ * Root SPA with autocomplete, live/mock forecast, chart, geolocation, and i18n.
  */
 function App() {
   const dispatch = useAppDispatch();
+  const { t, i18n } = useTranslation();
   const {
     query,
     suggestions,
@@ -28,22 +32,43 @@ function App() {
     dispatch({ type: CITIES_BOOTSTRAP });
   }, [dispatch]);
 
+  // Refetch forecast when language changes so OWM descriptions match the UI.
+  useEffect(() => {
+    if (selectedCity) {
+      dispatch(selectCity(selectedCity));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- only react to language changes
+  }, [i18n.language, dispatch]);
+
+  useEffect(() => {
+    document.documentElement.lang = i18n.resolvedLanguage === 'cz' ? 'cs' : 'en';
+  }, [i18n.resolvedLanguage]);
+
   const suggestionLabels = suggestions.map((city) => formatCityLabel(city));
   const usingMockApi = import.meta.env.VITE_USE_MOCK_API === 'true';
+
+  const cityLabel = selectedCity
+    ? selectedCity.id === -1
+      ? t('geo.currentLocation')
+      : formatCityLabel(selectedCity)
+    : undefined;
 
   return (
     <main className="app-shell">
       <header className="app-header">
-        <h1>Weather Forecast</h1>
-        <p>Five-day temperature outlook with city autocomplete powered by OpenWeatherMap.</p>
+        <div className="app-header__top">
+          <h1>{t('app.title')}</h1>
+          <LanguageSwitcher />
+        </div>
+        <p>{t('app.subtitle')}</p>
         {usingMockApi && (
           <p className="mock-note" role="note">
-            Mock API mode is enabled (MSW). Set VITE_USE_MOCK_API=false to use the live API.
+            {t('app.mockMode')}
           </p>
         )}
         {source && (
           <p className="mock-note" role="status">
-            City list loaded from {source === 'remote' ? 'online JSON' : 'local fallback file'}.
+            {source === 'remote' ? t('app.citiesRemote') : t('app.citiesLocal')}
           </p>
         )}
       </header>
@@ -54,12 +79,12 @@ function App() {
           onClick={() => dispatch({ type: GEOLOCATION_REQUESTED })}
           disabled={geoStatus === 'loading'}
         >
-          {geoStatus === 'loading' ? 'Locating…' : 'Use my location'}
+          {geoStatus === 'loading' ? t('geo.locating') : t('geo.useLocation')}
         </button>
       </div>
       {geoError && (
         <p className="alert-line" role="alert">
-          {geoError}
+          {translateMessage(geoError, 'errors.geolocationGeneric')}
         </p>
       )}
 
@@ -77,18 +102,18 @@ function App() {
 
       {citiesStatus === 'loading' && (
         <p className="status-line" role="status">
-          Loading cities…
+          {t('city.loading')}
         </p>
       )}
       {citiesStatus === 'failed' && (
         <p className="alert-line" role="alert">
-          {citiesError}
+          {translateMessage(citiesError, 'errors.failedCities')}
         </p>
       )}
 
       <ForecastTable
         days={days}
-        cityLabel={selectedCity ? formatCityLabel(selectedCity) : undefined}
+        cityLabel={cityLabel}
         status={status}
         errorMessage={error}
         chart={days.length > 0 ? <ForecastChart days={days} /> : null}

@@ -8,6 +8,8 @@ import {
   Tooltip,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
+import { useTranslation } from 'react-i18next';
+import { getIntlLocale } from '@/i18n';
 import type { DailyForecast } from '@/types/weather';
 import { formatForecastDate } from '@/utils/formatDate';
 
@@ -21,24 +23,25 @@ interface ForecastChartProps {
  * Temperature trend chart for the selected five-day forecast.
  */
 export function ForecastChart({ days }: ForecastChartProps) {
-  const labels = days.map((day) => formatForecastDate(day.dateUnix));
+  const { t, i18n } = useTranslation();
+  const labels = days.map((day) => formatForecastDate(day.dateUnix, getIntlLocale(i18n.language)));
 
   return (
     <div className="forecast-chart">
-      <h3>Temperature trend</h3>
+      <h3>{t('chart.trend')}</h3>
       <Line
         data={{
           labels,
           datasets: [
             {
-              label: 'Max °C',
+              label: t('chart.max'),
               data: days.map((day) => day.tempMax),
               borderColor: '#0b6e99',
               backgroundColor: 'rgba(11, 110, 153, 0.15)',
               tension: 0.3,
             },
             {
-              label: 'Min °C',
+              label: t('chart.min'),
               data: days.map((day) => day.tempMin),
               borderColor: '#4a5a70',
               backgroundColor: 'rgba(74, 90, 112, 0.12)',

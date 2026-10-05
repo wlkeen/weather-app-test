@@ -1,4 +1,6 @@
 import type { ReactNode } from 'react';
+import { useTranslation } from 'react-i18next';
+import { getIntlLocale, translateMessage } from '@/i18n';
 import type { DailyForecast, LoadingStatus } from '@/types/weather';
 import { formatForecastDate } from '@/utils/formatDate';
 
@@ -7,7 +9,7 @@ interface ForecastTableProps {
   cityLabel?: string;
   status?: LoadingStatus;
   errorMessage?: string | null;
-  /** Optional chart slot rendered under the table. */
+  /** Optional chart slot rendered under the table (bonus). */
   chart?: ReactNode;
 }
 
@@ -21,33 +23,43 @@ export function ForecastTable({
   errorMessage = null,
   chart,
 }: ForecastTableProps) {
+  const { t, i18n } = useTranslation();
+
   if (status === 'loading') {
-    return <p className="status-line" role="status">Loading forecast…</p>;
+    return (
+      <p className="status-line" role="status">
+        {t('forecast.loading')}
+      </p>
+    );
   }
 
   if (status === 'failed') {
-    return <p className="alert-line" role="alert">{errorMessage ?? 'Failed to load forecast.'}</p>;
+    return (
+      <p className="alert-line" role="alert">
+        {translateMessage(errorMessage, 'forecast.failed')}
+      </p>
+    );
   }
 
   if (days.length === 0) {
     return (
       <p className="status-line" role="status">
-        Select a city to see the five-day forecast.
+        {t('forecast.empty')}
       </p>
     );
   }
 
   return (
-    <section className="forecast" aria-label="Five-day forecast">
-      {cityLabel ? <h2>Forecast for {cityLabel}</h2> : <h2>Forecast</h2>}
+    <section className="forecast" aria-label={t('forecast.aria')}>
+      {cityLabel ? <h2>{t('forecast.for', { city: cityLabel })}</h2> : <h2>{t('forecast.title')}</h2>}
       <div className="forecast-table-wrap">
         <table className="forecast-table">
           <thead>
             <tr>
-              <th scope="col">Date</th>
-              <th scope="col">Min (°C)</th>
-              <th scope="col">Max (°C)</th>
-              <th scope="col">Conditions</th>
+              <th scope="col">{t('forecast.date')}</th>
+              <th scope="col">{t('forecast.min')}</th>
+              <th scope="col">{t('forecast.max')}</th>
+              <th scope="col">{t('forecast.conditions')}</th>
             </tr>
           </thead>
           <tbody>
@@ -55,7 +67,7 @@ export function ForecastTable({
               <tr key={day.dateUnix}>
                 <td>
                   <time dateTime={new Date(day.dateUnix * 1000).toISOString()}>
-                    {formatForecastDate(day.dateUnix)}
+                    {formatForecastDate(day.dateUnix, getIntlLocale(i18n.language))}
                   </time>
                 </td>
                 <td>{day.tempMin.toFixed(1)}</td>

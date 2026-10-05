@@ -11,8 +11,17 @@
   margin-bottom: $space-6;
   @include fade-up(0s);
 
+  &__top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: $space-3;
+    margin-bottom: $space-2;
+  }
+
   h1 {
-    margin: 0 0 $space-2;
+    margin: 0;
     font-family: $font-display;
     font-weight: 560;
     font-size: clamp(2.4rem, 6vw, 3.6rem);
@@ -42,4 +51,45 @@
 .alert-line {
   margin: $space-3 0;
   color: $color-danger;
+}
+
+.language-switcher {
+  display: inline-flex;
+  gap: 0.2rem;
+  padding: 0.2rem;
+  border: 1px solid $color-line;
+  border-radius: $radius-sm;
+  background: $color-surface-strong;
+
+  button {
+    appearance: none;
+    min-width: 2.6rem;
+    padding: 0.4rem 0.65rem;
+    border: 0;
+    border-radius: 0.35rem;
+    background: transparent;
+    color: $color-ink-muted;
+    font: inherit;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition:
+      background-color 140ms ease,
+      color 140ms ease;
+
+    &:hover {
+      color: $color-ink;
+      background: rgba(11, 110, 153, 0.08);
+    }
+
+    &:focus-visible {
+      @include focus-ring;
+    }
+
+    &.is-active {
+      background: rgba(11, 110, 153, 0.14);
+      color: $color-accent-deep;
+    }
+  }
 }

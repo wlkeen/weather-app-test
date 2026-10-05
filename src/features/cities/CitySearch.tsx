@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 interface CitySearchProps {
   value: string;
   onChange: (value: string) => void;
@@ -15,11 +17,12 @@ export function CitySearch({
   suggestions = [],
   onSelectSuggestion,
 }: CitySearchProps) {
+  const { t } = useTranslation();
   const listId = 'city-suggestions';
 
   return (
-    <section className="city-search" aria-label="City search">
-      <label htmlFor="city-input">City</label>
+    <section className="city-search" aria-label={t('city.searchAria')}>
+      <label htmlFor="city-input">{t('city.label')}</label>
       <input
         id="city-input"
         type="search"
@@ -28,7 +31,7 @@ export function CitySearch({
         aria-controls={listId}
         aria-autocomplete="list"
         autoComplete="off"
-        placeholder="Start typing a city name…"
+        placeholder={t('city.placeholder')}
         value={value}
         onChange={(event) => onChange(event.target.value)}
       />

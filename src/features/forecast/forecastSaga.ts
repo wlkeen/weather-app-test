@@ -10,7 +10,7 @@ function* handleCitySelected(action: ReturnType<typeof selectCity>) {
         const days: DailyForecast[] = yield call(fetchFiveDayForecast, action.payload.coord);
         yield put(forecastSucceeded(days));
     } catch (error) {
-        const message = error instanceof Error ? error.message : 'Failed to load forecast';
+        const message = error instanceof Error ? error.message : 'errors.failedForecast';
         yield put(forecastFailed(message));
     }
 }

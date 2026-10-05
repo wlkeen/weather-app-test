@@ -1,0 +1,50 @@
+{
+  "app": {
+    "title": "Weather Forecast",
+    "subtitle": "Five-day temperature outlook with city autocomplete powered by OpenWeatherMap.",
+    "mockMode": "Mock API mode is enabled (MSW). Set VITE_USE_MOCK_API=false to use the live API.",
+    "citiesRemote": "City list loaded from online JSON.",
+    "citiesLocal": "City list loaded from local fallback file.",
+    "language": "Language",
+    "langEn": "EN",
+    "langCz": "CZ"
+  },
+  "city": {
+    "label": "City",
+    "placeholder": "Start typing a city name…",
+    "searchAria": "City search",
+    "loading": "Loading cities…"
+  },
+  "geo": {
+    "useLocation": "Use my location",
+    "locating": "Locating…",
+    "currentLocation": "Current location"
+  },
+  "forecast": {
+    "title": "Forecast",
+    "for": "Forecast for {{city}}",
+    "loading": "Loading forecast…",
+    "empty": "Select a city to see the five-day forecast.",
+    "failed": "Failed to load forecast.",
+    "aria": "Five-day forecast",
+    "date": "Date",
+    "min": "Min (°C)",
+    "max": "Max (°C)",
+    "conditions": "Conditions"
+  },
+  "chart": {
+    "trend": "Temperature trend",
+    "max": "Max °C",
+    "min": "Min °C"
+  },
+  "errors": {
+    "missingApiKey": "Missing OpenWeatherMap API key. Set VITE_OPENWEATHER_API_KEY in .env",
+    "invalidApiKey": "Invalid OpenWeatherMap API key (HTTP 401).",
+    "weatherRequestFailed": "Weather API request failed.",
+    "failedForecast": "Failed to load forecast.",
+    "failedCities": "Failed to load cities.",
+    "geolocationUnsupported": "Geolocation is not supported by this browser.",
+    "geolocationFailed": "Unable to determine location.",
+    "geolocationGeneric": "Geolocation failed."
+  }
+}
