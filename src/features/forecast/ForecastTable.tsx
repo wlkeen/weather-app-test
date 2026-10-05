@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import type { DailyForecast, LoadingStatus } from '@/types/weather';
 import { formatForecastDate } from '@/utils/formatDate';
 
@@ -6,6 +7,8 @@ interface ForecastTableProps {
   cityLabel?: string;
   status?: LoadingStatus;
   errorMessage?: string | null;
+  /** Optional chart slot rendered under the table. */
+  chart?: ReactNode;
 }
 
 /**
@@ -16,6 +19,7 @@ export function ForecastTable({
   cityLabel,
   status = 'succeeded',
   errorMessage = null,
+  chart,
 }: ForecastTableProps) {
   if (status === 'loading') {
     return <p className="status-line" role="status">Loading forecast…</p>;
@@ -62,6 +66,7 @@ export function ForecastTable({
           </tbody>
         </table>
       </div>
+      {chart}
     </section>
   );
 }
