@@ -17,6 +17,10 @@ dist-ssr
 .env.*
 !.env.example
 
+# .NET backend build output
+backend/**/bin/
+backend/**/obj/
+
 # Editor directories and files
 .vs
 .vscode/*

@@ -1,0 +1,5 @@
+@WeatherApi_HostAddress = http://localhost:5080
+
+### Five-day forecast (Prague)
+GET {{WeatherApi_HostAddress}}/api/weather/forecast?lat=50.08&lon=14.43&lang=cz
+Accept: application/json
